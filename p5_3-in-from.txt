@@ -1,0 +1,11 @@
+USE Mydb;
+
+SELECT 
+    subquery.order_id,
+    AVG(subquery.quantity) AS avg_quantity
+FROM (
+    SELECT order_id, quantity
+    FROM order_details
+    WHERE quantity > 10
+) AS subquery
+GROUP BY subquery.order_id;

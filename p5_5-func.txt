@@ -1,0 +1,24 @@
+USE Mydb;
+
+DROP FUNCTION IF EXISTS Divide_floats;
+
+DELIMITER //
+
+CREATE FUNCTION Divide_floats(numerator FLOAT, denominator FLOAT)
+RETURNS FLOAT
+DETERMINISTIC
+BEGIN    
+    IF denominator = 0 THEN
+        RETURN NULL;
+    END IF;
+    RETURN numerator / denominator;
+END //
+
+DELIMITER ;
+
+SELECT 
+    order_id,
+    quantity,
+    Divide_floats(quantity, 2) AS divided_quantity
+FROM 
+    order_details;
